@@ -1,25 +1,24 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100vh;
+}
+
+.application-aside {
+  flex: 0 1 auto;
+  background-color: aliceblue;
+  text-align: center;
+  padding: 30px;
+}
+
+.content-wrapper {
+  flex: 1 1 auto;
+  background-color: antiquewhite;
+  padding: 30px;
+}
+
+.example-wrapper {
+  flex: 0 1 auto;
+  width: 210px;
 }
 
 .App-link {

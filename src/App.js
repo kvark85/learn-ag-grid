@@ -1,56 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { Counter } from './app/components/counter/Counter';
+import {
+  Switch,
+  Route
+} from "react-router-dom";
+import 'normalize.css/normalize.css';
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
 import './App.css';
+import Menu from "./app/components/Menu";
+import DragAndDropTable from "./app/components/DragAndDropTable";
+import GroupedTable from "./app/components/GroupedTable";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Menu />
+
+      <div className="content-wrapper">
+        <Switch>
+          <Route path="/grouped-table">
+            <GroupedTable />
+          </Route>
+          <Route path="/drag-and-drop">
+            <DragAndDropTable />
+          </Route>
+          <Route path="/">
+            <GroupedTable />
+          </Route>
+        </Switch>
+      </div>
+
+      <Counter />
     </div>
   );
 }
