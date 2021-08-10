@@ -2,18 +2,21 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { fetchData } from './app/slices/vehicleSlice';
-import { Counter } from './app/components/counter/Counter';
 import {
   Switch,
   Route
 } from "react-router-dom";
 import 'normalize.css/normalize.css';
-import '@blueprintjs/icons/lib/css/blueprint-icons.css';
-import '@blueprintjs/core/lib/css/blueprint.css';
-import './App.css';
 import Menu from "./app/components/Menu";
 import DragAndDropTable from "./app/components/DragAndDropTable";
 import GroupedTable from "./app/components/GroupedTable";
+
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
+import 'ag-grid-enterprise';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,8 +39,6 @@ function App() {
           </Route>
         </Switch>
       </div>
-
-      <Counter />
     </div>
   );
 }

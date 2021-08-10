@@ -15,8 +15,8 @@ export const fetchData = createAsyncThunk(
   }
 );
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const vehicleSlice = createSlice({
+  name: 'vehicle',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -31,4 +31,14 @@ export const counterSlice = createSlice({
   },
 });
 
-export default counterSlice.reducer;
+export const vehicleDataTable = (state) => state.vehicle.vehicles.map((vehicle) => ({
+  markName: vehicle.markName,
+  title: vehicle.title,
+  USD: vehicle.USD,
+  regionName: vehicle.stateData.regionName,
+  cityLocative: vehicle.cityLocative,
+  travelRoute: []
+}));
+
+export default vehicleSlice.reducer;
+
