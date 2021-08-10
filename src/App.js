@@ -1,4 +1,7 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { fetchData } from './app/slices/vehicleSlice';
 import { Counter } from './app/components/counter/Counter';
 import {
   Switch,
@@ -13,6 +16,9 @@ import DragAndDropTable from "./app/components/DragAndDropTable";
 import GroupedTable from "./app/components/GroupedTable";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(fetchData()));
+
   return (
     <div className="App">
       <Menu />

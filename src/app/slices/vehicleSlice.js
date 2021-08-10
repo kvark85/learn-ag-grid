@@ -1,15 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchVehicles } from '../resources/vehicleAPI';
+import { fetchVehicles, fetchOneVehicle } from '../resources/vehicleAPI';
 
 const initialState = {
-  vehiclesIds: [],
-  allResponse: {},
+  vehicles: [],
   status: 'idle',
 };
 
 export const fetchData = createAsyncThunk(
   'vehicles/fetchVehicles',
-  async () => await fetchVehicles()
+  async () => {
+    const ids = (await fetchVehicles()).search_result?.ids;
+
+    return await Promise.all(ids.map((id) => fetchOneVehicle(id)));
+  }
 );
 
 export const counterSlice = createSlice({
@@ -23,8 +26,7 @@ export const counterSlice = createSlice({
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.allResponse = action.payload;
-        state.vehiclesIds = action.payload.search_result?.ids;
+        state.vehicles = action.payload;
       });
   },
 });
