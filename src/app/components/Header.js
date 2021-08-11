@@ -21,7 +21,7 @@ const Search = () => {
 
   return (
     <StyledHeader>
-      <img src="/images/logo.png" alt="Logo" />
+      <img src="images/logo.png" alt="Logo" />
       <StyledHeaderText>Moto search</StyledHeaderText>
       <StyledCog icon="cog" minimal={true} />
     </StyledHeader>
