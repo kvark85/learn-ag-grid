@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/learn-ag-grid/static/css/main.62f5f0fd.chunk.css",
+    "main.js": "/learn-ag-grid/static/js/main.4bd1c913.chunk.js",
+    "main.js.map": "/learn-ag-grid/static/js/main.4bd1c913.chunk.js.map",
+    "runtime-main.js": "/learn-ag-grid/static/js/runtime-main.c96f69ba.js",
+    "runtime-main.js.map": "/learn-ag-grid/static/js/runtime-main.c96f69ba.js.map",
+    "static/css/2.77581e44.chunk.css": "/learn-ag-grid/static/css/2.77581e44.chunk.css",
+    "static/js/2.b169e6d2.chunk.js": "/learn-ag-grid/static/js/2.b169e6d2.chunk.js",
+    "static/js/2.b169e6d2.chunk.js.map": "/learn-ag-grid/static/js/2.b169e6d2.chunk.js.map",
+    "index.html": "/learn-ag-grid/index.html",
+    "static/css/2.77581e44.chunk.css.map": "/learn-ag-grid/static/css/2.77581e44.chunk.css.map",
+    "static/css/main.62f5f0fd.chunk.css.map": "/learn-ag-grid/static/css/main.62f5f0fd.chunk.css.map",
+    "static/js/2.b169e6d2.chunk.js.LICENSE.txt": "/learn-ag-grid/static/js/2.b169e6d2.chunk.js.LICENSE.txt",
+    "static/media/blueprint-icons.css": "/learn-ag-grid/static/media/icons-20.cde033c5.eot"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c96f69ba.js",
+    "static/css/2.77581e44.chunk.css",
+    "static/js/2.b169e6d2.chunk.js",
+    "static/css/main.62f5f0fd.chunk.css",
+    "static/js/main.4bd1c913.chunk.js"
+  ]
+}
