@@ -5,7 +5,7 @@ const Search = () => {
   const StyledHeader = styled.div`
     display: flex;
     align-items: center;
-    height: 46.5px;
+    height: 46px;
     border-bottom: 1px solid #DADCDE;
   `;
   const StyledHeaderText = styled.div`
