@@ -15,10 +15,10 @@ export const fetchMarks = createAsyncThunk(
   }
 );
 
-export const fetchData = createAsyncThunk(
+export const fetchVehicles = createAsyncThunk(
   'vehicles/fetchVehicles',
-  async () => {
-    const ids = (await api.fetchVehicles()).search_result?.ids;
+  async (selectedMarks) => {
+    const ids = (await api.fetchVehicles(CATEGORIES.MOTORCYCLE, selectedMarks)).search_result?.ids;
 
     return await Promise.all(ids.map((id) => api.fetchOneVehicle(id)));
   }
@@ -37,10 +37,10 @@ export const vehicleSlice = createSlice({
         state.status = 'idle';
         state.marks = action.payload;
       })
-      .addCase(fetchData.pending, (state) => {
+      .addCase(fetchVehicles.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(fetchVehicles.fulfilled, (state, action) => {
         state.status = 'idle';
         state.vehicles = action.payload;
       });

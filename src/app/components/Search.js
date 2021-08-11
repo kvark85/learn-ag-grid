@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@blueprintjs/core";
 import { MenuItem } from "@blueprintjs/core";
 import { MultiSelect } from "@blueprintjs/select";
-import { marksSelector } from '../slices/vehicleSlice';
+import { marksSelector, fetchVehicles } from '../slices/vehicleSlice';
 import styled from 'styled-components'
 
 const Header = () => {
+  const dispatch = useDispatch();
   const marks = useSelector(marksSelector);
   const [selectedMarks, setMarks] = useState([]);
 
@@ -75,6 +76,8 @@ const Header = () => {
     setMarks([...selectedMarks, mark]);
   };
 
+  const handleSearchClick = () => dispatch(fetchVehicles(selectedMarks));
+
   return (
     <StyledHeader>
       <StyledHeaderText>Select manufacturer and region</StyledHeaderText>
@@ -98,7 +101,14 @@ const Header = () => {
         </StyledSearchInputWrapper>
       </StyledSearchWrapper>
 
-      <Button icon="cube-add" intent="primary" >Search vehicles</Button>
+      <Button
+        icon="cube-add"
+        intent="primary"
+        disabled={selectedMarks.length === 0}
+        onClick={handleSearchClick}
+      >
+        Search vehicles
+      </Button>
     </StyledHeader>
   )
 };

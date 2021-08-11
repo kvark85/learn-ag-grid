@@ -8,11 +8,14 @@ const fetchMarks = (markaId) => {
     .then(response => response.json());
 }
 
-const fetchVehicles = ({ marka_id }) => {
+const fetchVehicles = (categoryId, selectedMarks) => {
+  const markaSubstring = selectedMarks.reduce((memo, marka, index) => {
+    return memo + `&marka_id[${index}]=${marka.value}&model_id[${index}]=0`;
+  }, '');
+
   const requestString = `https://developers.ria.com/auto/search?api_key=${SEARCH_API_KEY}` +
-    `&category_id=${marka_id}` +
-    '&marka_id[0]=9' +
-    '&model_id[0]=0' +
+    `&category_id=${categoryId}` +
+    markaSubstring +
     '&state[0]=7' +
     '&city[0]=0';
 
