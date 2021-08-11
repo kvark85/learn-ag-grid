@@ -1,17 +1,26 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchVehicles, fetchOneVehicle } from '../resources/vehicleAPI';
+import api from '../resources/vehicleAPI';
+import { CATEGORIES } from '../constants'
 
 const initialState = {
+  marks: [],
   vehicles: [],
   status: 'idle',
 };
 
+export const fetchMarks = createAsyncThunk(
+  'vehicles/fetchMarks',
+  async () => {
+    return await api.fetchMarks(CATEGORIES.MOTORCYCLE);
+  }
+);
+
 export const fetchData = createAsyncThunk(
   'vehicles/fetchVehicles',
   async () => {
-    const ids = (await fetchVehicles()).search_result?.ids;
+    const ids = (await api.fetchVehicles()).search_result?.ids;
 
-    return await Promise.all(ids.map((id) => fetchOneVehicle(id)));
+    return await Promise.all(ids.map((id) => api.fetchOneVehicle(id)));
   }
 );
 
@@ -21,6 +30,13 @@ export const vehicleSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchMarks.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMarks.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.marks = action.payload;
+      })
       .addCase(fetchData.pending, (state) => {
         state.status = 'loading';
       })
@@ -39,6 +55,8 @@ export const vehicleDataTable = (state) => state.vehicle.vehicles.map((vehicle) 
   cityLocative: vehicle.cityLocative,
   travelRoute: []
 }));
+
+export const marksSelector = (state) => state.vehicle.marks;
 
 export default vehicleSlice.reducer;
 

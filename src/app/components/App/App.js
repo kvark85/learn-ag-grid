@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { fetchData } from '../../slices/vehicleSlice';
+import { fetchMarks } from '../../slices/vehicleSlice';
 import styled from 'styled-components'
 import {
   Switch,
@@ -17,10 +17,11 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(fetchData()));
+  useEffect(() => dispatch(fetchMarks()));
 
   const StyledApp = styled.div`
     display: flex;

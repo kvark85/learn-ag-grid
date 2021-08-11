@@ -1,7 +1,7 @@
 import { Button } from "@blueprintjs/core";
 import styled from 'styled-components'
 
-const Header = () => {
+const Search = () => {
   const StyledHeader = styled.div`
     display: flex;
     align-items: center;
@@ -28,4 +28,4 @@ const Header = () => {
   )
 };
 
-export default Header;
+export default Search;

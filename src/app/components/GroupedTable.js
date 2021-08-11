@@ -2,28 +2,15 @@ import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import styled from 'styled-components'
 import { useSelector } from 'react-redux';
 import { vehicleDataTable } from '../slices/vehicleSlice';
-import { Button } from "@blueprintjs/core";
 import Header from './Header'
+import Search from './Search'
 
 const TABLE_WIDTH = '100%';
 const TABLE_HEIGHT = '100%';
 
 const GroupedTable = () => {
   const tableData = useSelector(vehicleDataTable);
-  const StyledHeader = styled.div`
-    display: flex;
-    align-items: center;
-    height: 45px;
-    padding-right: 16px;
-    padding-left: 16px;
-  `;
-  const StyledHeaderText = styled.div`
-    flex: 1 1 auto;
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 0;
-  `;
+
   const StyledTableWrapper = styled.div`
     flex: 1 1 auto;
     min-width: 0;
@@ -33,12 +20,7 @@ const GroupedTable = () => {
   return (
     <>
       <Header />
-
-      <StyledHeader>
-        <StyledHeaderText>Select manufacturer and region</StyledHeaderText>
-        <Button icon="cube-add" intent="primary" >Search vehicles</Button>
-      </StyledHeader>
-
+      <Search />
       <StyledTableWrapper>
         <div
           className="ag-theme-alpine"
