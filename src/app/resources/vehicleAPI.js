@@ -17,7 +17,8 @@ const fetchVehicles = (categoryId, selectedMarks) => {
     `&category_id=${categoryId}` +
     markaSubstring +
     '&state[0]=7' +
-    '&city[0]=0';
+    '&city[0]=0' +
+    '&countpage=100';
 
   return fetch(encodeURI(requestString))
     .then(response => response.json())

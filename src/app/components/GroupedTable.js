@@ -15,8 +15,9 @@ const GroupedTable = () => {
     },
     columnDefs: [
       { headerName: 'Mark', field: 'markName', width: 200, rowGroup: true },
-      { headerName: 'Region', field: 'regionName', width: 200, rowGroup: true },
+      { headerName: 'Region', field: 'regionName', width: 200 },
       { headerName: 'City', field: 'cityLocative', width: 200, rowGroup: true },
+      { headerName: 'Model', field: 'title', width: 200 },
       { headerName: 'USD', field: 'USD', width: 200 },
       { headerName: 'Travel Route', field: 'travelRoute', width: 200 },
     ],
