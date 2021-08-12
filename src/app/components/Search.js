@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@blueprintjs/core";
 import { MenuItem } from "@blueprintjs/core";
 import { MultiSelect } from "@blueprintjs/select";
-import { marksSelector, fetchVehicles } from '../slices/vehicleSlice';
+import {
+  marksSelector,
+  fetchVehicles,
+  statusSelector
+} from '../slices/vehicleSlice';
 import styled from 'styled-components'
 
 const Header = () => {
   const dispatch = useDispatch();
   const marks = useSelector(marksSelector);
   const [selectedMarks, setMarks] = useState([]);
+  const status = useSelector(statusSelector);
 
   const StyledHeader = styled.div`
     display: flex;
@@ -104,6 +109,7 @@ const Header = () => {
       <Button
         icon="cube-add"
         intent="primary"
+        loading={status === 'loading'}
         disabled={selectedMarks.length === 0}
         onClick={handleSearchClick}
       >

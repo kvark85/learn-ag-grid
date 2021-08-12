@@ -55,8 +55,8 @@ export const vehicleDataTable = (state) => state.vehicle.vehicles.map((vehicle) 
   cityLocative: vehicle.cityLocative,
   travelRoute: []
 }));
-
 export const marksSelector = (state) => state.vehicle.marks;
+export const statusSelector = (state) => state.vehicle.status;
 
 export default vehicleSlice.reducer;
 
