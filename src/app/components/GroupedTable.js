@@ -1,4 +1,4 @@
-import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+import { AgGridReact} from 'ag-grid-react';
 import styled from 'styled-components'
 import { useSelector } from 'react-redux';
 import { vehicleDataTable } from '../slices/vehicleSlice';
@@ -9,7 +9,19 @@ const TABLE_WIDTH = '100%';
 const TABLE_HEIGHT = '100%';
 
 const GroupedTable = () => {
-  const tableData = useSelector(vehicleDataTable);
+  const gridOptions = {
+    defaultColDef: {
+      sortable: true,
+    },
+    columnDefs: [
+      { headerName: 'Mark', field: 'markName', width: 200, rowGroup: true },
+      { headerName: 'Region', field: 'regionName', width: 200, rowGroup: true },
+      { headerName: 'City', field: 'cityLocative', width: 200, rowGroup: true },
+      { headerName: 'USD', field: 'USD', width: 200 },
+      { headerName: 'Travel Route', field: 'travelRoute', width: 200 },
+    ],
+    rowData: useSelector(vehicleDataTable)
+  };
 
   const StyledTableWrapper = styled.div`
     flex: 1 1 auto;
@@ -29,34 +41,7 @@ const GroupedTable = () => {
             height: TABLE_HEIGHT,
           }}
         >
-          <AgGridReact
-            rowData={tableData}>
-            <AgGridColumn
-              field="markName"
-              sortable={ true }
-              filter={ true } rowGroup={true}
-            />
-            <AgGridColumn
-              field="title"
-              sortable={ true }
-              filter={ true } />
-            <AgGridColumn
-              field="regionName"
-              sortable={ true }
-              filter={ true } rowGroup={true} />
-            <AgGridColumn
-              field="cityLocative"
-              sortable={ true }
-              filter={ true } rowGroup={true} />
-            <AgGridColumn
-              field="USD"
-              sortable={ true }
-              filter={ true } />
-            <AgGridColumn
-              field="travelRoute"
-              sortable={ true }
-              filter={ true } />
-          </AgGridReact>
+          <AgGridReact {...gridOptions} />
         </div>
       </StyledTableWrapper>
     </>
