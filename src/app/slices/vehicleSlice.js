@@ -19,8 +19,9 @@ export const fetchVehicles = createAsyncThunk(
   'vehicles/fetchVehicles',
   async (selectedMarks) => {
     const ids = (await api.fetchVehicles(CATEGORIES.MOTORCYCLE, selectedMarks)).search_result?.ids;
+    const vehicles = await Promise.all(ids.map((id) => api.fetchOneVehicle(id)))
 
-    return await Promise.all(ids.map((id) => api.fetchOneVehicle(id)));
+    return vehicles.map((vehicle, index) => ({...vehicle, id: ids[index] }));
   }
 );
 
@@ -48,6 +49,7 @@ export const vehicleSlice = createSlice({
 });
 
 export const vehicleDataTable = (state) => state.vehicle.vehicles.map((vehicle) => ({
+  id: vehicle.id,
   markName: vehicle.markName,
   title: vehicle.title,
   price: {

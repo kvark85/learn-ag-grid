@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { vehicleDataTable } from '../slices/vehicleSlice';
 import Header from './Header'
 import Search from './Search'
+import VehicleDetails from './VehicleDetails'
 import {
   regionValueFormatter,
   priceValueGetter,
@@ -13,53 +14,49 @@ import {
 
 const GroupedTable = () => {
   const gridOptions = {
+    masterDetail: true,
+    detailCellRenderer: 'vehicleDetails',
     frameworkComponents: {
       amountCellRenderer: AmountCellRenderer,
+      vehicleDetails: VehicleDetails
     },
     defaultColDef: {
       sortable: true,
       filter: true,
       flex: 1,
+      minWidth: 200,
     },
     columnDefs: [
       {
         headerName: 'Mark',
         field: 'markName',
-        minWidth: 200,
+        cellRenderer: "agGroupCellRenderer",
         rowGroup: true
       },
       {
         headerName: 'Region',
         field: 'regionName',
-        minWidth: 200,
         valueFormatter: regionValueFormatter
       },
       {
         headerName: 'City',
         field: 'locationCityName',
-        minWidth: 200,
         rowGroup: true
       },
       {
         headerName: 'Model',
         field: 'title',
-        minWidth: 200,
       },
       {
         headerName: 'USD',
-        minWidth: 200,
         valueGetter: priceValueGetter,
         valueFormatter: amountValueFormatter,
         cellRenderer: 'amountCellRenderer'
       },
       {
         headerName: 'Travel Route',
-        minWidth: 200,
       },
     ],
-    autoGroupColumnDef: {
-      minWidth: 200,
-    },
     rowData: useSelector(vehicleDataTable)
   };
 
