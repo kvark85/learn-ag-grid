@@ -13,7 +13,7 @@ import styled from 'styled-components'
 const Header = () => {
   const dispatch = useDispatch();
   const marks = useSelector(marksSelector);
-  const [selectedMarks, setMarks] = useState([]);
+  const [selectedMarks, setMarks] = useState([{ name: 'Honda', value: 28 }]);
   const status = useSelector(statusSelector);
 
   const StyledHeader = styled.div`

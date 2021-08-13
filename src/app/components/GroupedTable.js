@@ -4,22 +4,57 @@ import { useSelector } from 'react-redux';
 import { vehicleDataTable } from '../slices/vehicleSlice';
 import Header from './Header'
 import Search from './Search'
-
-const TABLE_WIDTH = '100%';
-const TABLE_HEIGHT = '100%';
+import {
+  regionValueFormatter,
+  priceValueGetter,
+  amountValueFormatter,
+  AmountCellRenderer,
+} from '../helpers';
 
 const GroupedTable = () => {
   const gridOptions = {
+    frameworkComponents: {
+      amountCellRenderer: AmountCellRenderer,
+    },
     defaultColDef: {
       sortable: true,
+      filter: true,
+      flex: 1,
     },
     columnDefs: [
-      { headerName: 'Mark', field: 'markName', width: 200, rowGroup: true },
-      { headerName: 'Region', field: 'regionName', width: 200 },
-      { headerName: 'City', field: 'cityLocative', width: 200, rowGroup: true },
-      { headerName: 'Model', field: 'title', width: 200 },
-      { headerName: 'USD', field: 'USD', width: 200 },
-      { headerName: 'Travel Route', field: 'travelRoute', width: 200 },
+      {
+        headerName: 'Mark',
+        field: 'markName',
+        minWidth: 200,
+        rowGroup: true
+      },
+      {
+        headerName: 'Region',
+        field: 'regionName',
+        minWidth: 200,
+        valueFormatter: regionValueFormatter
+      },
+      {
+        headerName: 'City',
+        field: 'locationCityName',
+        minWidth: 200,
+        rowGroup: true
+      },
+      {
+        headerName: 'Model',
+        field: 'title',
+        minWidth: 200,
+      },
+      {
+        headerName: 'USD',
+        minWidth: 200,
+        valueGetter: priceValueGetter,
+        valueFormatter: amountValueFormatter,
+        cellRenderer: 'amountCellRenderer'
+      },
+      {
+        headerName: 'Travel Route',
+      },
     ],
     rowData: useSelector(vehicleDataTable)
   };
@@ -35,13 +70,7 @@ const GroupedTable = () => {
       <Header />
       <Search />
       <StyledTableWrapper>
-        <div
-          className="ag-theme-alpine"
-          style={{
-            width: TABLE_WIDTH,
-            height: TABLE_HEIGHT,
-          }}
-        >
+        <div className="ag-theme-alpine" style={{ height: '100%' }}>
           <AgGridReact {...gridOptions} />
         </div>
       </StyledTableWrapper>

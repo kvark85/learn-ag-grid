@@ -50,9 +50,12 @@ export const vehicleSlice = createSlice({
 export const vehicleDataTable = (state) => state.vehicle.vehicles.map((vehicle) => ({
   markName: vehicle.markName,
   title: vehicle.title,
-  USD: vehicle.USD,
+  price: {
+    USD: vehicle.USD,
+    UAH: vehicle.UAH,
+  },
   regionName: vehicle.stateData.regionName,
-  cityLocative: vehicle.cityLocative,
+  locationCityName: vehicle.locationCityName,
   travelRoute: []
 }));
 export const marksSelector = (state) => state.vehicle.marks;
