@@ -54,8 +54,12 @@ const GroupedTable = () => {
       },
       {
         headerName: 'Travel Route',
+        minWidth: 200,
       },
     ],
+    autoGroupColumnDef: {
+      minWidth: 200,
+    },
     rowData: useSelector(vehicleDataTable)
   };
 

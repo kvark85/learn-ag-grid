@@ -7,7 +7,6 @@ export const priceValueGetter = (params) => params?.data?.price?.USD;
 export const amountValueFormatter = (params) => params.value ? `$${params.value}` : params.value;
 
 export const AmountCellRenderer = (props) => {
-  debugger;
   const cellValue = props.valueFormatted;
 
   if(cellValue) {
