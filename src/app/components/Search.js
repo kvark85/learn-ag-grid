@@ -13,7 +13,7 @@ import styled from 'styled-components'
 const Header = () => {
   const dispatch = useDispatch();
   const marks = useSelector(marksSelector);
-  const [selectedMarks, setMarks] = useState([{ name: 'Honda', value: 28 }]);
+  const [selectedMarks, setMarks] = useState([{ name: 'BMW', value: 9 }]);
   const status = useSelector(statusSelector);
 
   const StyledHeader = styled.div`
@@ -31,6 +31,7 @@ const Header = () => {
   const StyledSearchWrapper = styled.div`
     flex: 1 1 auto;
     padding-left: 16px;
+    padding-right: 16px;
   `;
 
   const StyledSearchInputWrapper = styled.div`

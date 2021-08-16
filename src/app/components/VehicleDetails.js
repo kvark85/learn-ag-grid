@@ -8,14 +8,14 @@ const VehicleDetails = (params) => {
   const StyledDetailWrapper = styled.div`
     display: flex;
     height: 300px;
-    width: 100%;
-    align-items: stretch;
   `;
   const StyledPhoto = styled.div`
+    min-width: 300px;
     padding: 18px;
     white-space: initial;
   `;
   const StyledDetailInformation = styled.div`
+    flex: 1 1 auto;
     padding: 18px;
     white-space: initial;
   `;
