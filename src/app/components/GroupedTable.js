@@ -1,7 +1,6 @@
 import { AgGridReact} from 'ag-grid-react';
 import styled from 'styled-components'
-import { useSelector } from 'react-redux';
-import { vehicleDataTable } from '../slices/vehicleSlice';
+import { connect } from 'react-redux';
 import Header from './Header'
 import Search from './Search'
 import VehicleDetails from './VehicleDetails'
@@ -11,8 +10,10 @@ import {
   amountValueFormatter,
   AmountCellRenderer,
 } from '../helpers';
+import { fetchMarks } from "../actions/vehicleActions";
+import { getVehiclesTableData } from "../selectors/vehicleSelector";
 
-const GroupedTable = () => {
+const GroupedTable = ({ vehiclesTableData }) => {
   const gridOptions = {
     masterDetail: true,
     detailCellRenderer: 'vehicleDetails',
@@ -57,7 +58,7 @@ const GroupedTable = () => {
         headerName: 'Travel Route',
       },
     ],
-    rowData: useSelector(vehicleDataTable)
+    rowData: vehiclesTableData
   };
 
   const StyledTableWrapper = styled.div`
@@ -79,4 +80,7 @@ const GroupedTable = () => {
   )
 };
 
-export default GroupedTable;
+export default connect(
+  (state) => ({ vehiclesTableData: getVehiclesTableData(state) }),
+  { fetchMarks }
+)(GroupedTable);

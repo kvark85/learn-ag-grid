@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { Button } from "@blueprintjs/core";
 import { MenuItem } from "@blueprintjs/core";
 import { MultiSelect } from "@blueprintjs/select";
-import {
-  marksSelector,
-  fetchVehicles,
-  statusSelector
-} from '../slices/vehicleSlice';
 import styled from 'styled-components'
+import {
+  fetchMarks,
+  fetchVehicles
+} from "../actions/vehicleActions";
 
-const Header = () => {
-  const dispatch = useDispatch();
-  const marks = useSelector(marksSelector);
+const Header = ({ marks, status, fetchVehicles }) => {
   const [selectedMarks, setMarks] = useState([{ name: 'BMW', value: 9 }]);
-  const status = useSelector(statusSelector);
 
   const StyledHeader = styled.div`
     display: flex;
@@ -82,7 +78,7 @@ const Header = () => {
     setMarks([...selectedMarks, mark]);
   };
 
-  const handleSearchClick = () => dispatch(fetchVehicles(selectedMarks));
+  const handleSearchClick = () => fetchVehicles(selectedMarks);
 
   return (
     <StyledHeader>
@@ -120,4 +116,13 @@ const Header = () => {
   )
 };
 
-export default Header;
+export default connect(
+  ({ vehicleState: { marks, status } }) => ({
+    marks,
+    status
+  }),
+  {
+    fetchMarks,
+    fetchVehicles
+  }
+)(Header);

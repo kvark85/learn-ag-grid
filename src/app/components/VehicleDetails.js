@@ -33,7 +33,7 @@ const VehicleDetails = (params) => {
 };
 
 const mapStateToProps = (state) => ({
-  vehicles: state.vehicle.vehicles,
+  vehicles: state.vehicleState.vehicles,
 })
 
 export default connect(mapStateToProps)(VehicleDetails);

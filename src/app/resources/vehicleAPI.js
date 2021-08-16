@@ -22,7 +22,7 @@ const fetchVehicles = (categoryId, selectedMarks) => {
 
   return fetch(encodeURI(requestString))
     .then(response => response.json())
-    .then(({ result }) => result);
+    .then(({ result }) => result.search_result.ids);
 }
 
 const fetchOneVehicle = (id) => {

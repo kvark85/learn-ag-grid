@@ -1,7 +1,6 @@
-import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from "react-redux";
-import { fetchMarks } from '../../slices/vehicleSlice';
+import { connect } from 'react-redux';
+import { fetchMarks } from "../../actions/vehicleActions";
 import styled from 'styled-components'
 import {
   Switch,
@@ -19,9 +18,8 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import './App.css';
 
-function App() {
-  const dispatch = useDispatch();
-  useEffect(() => dispatch(fetchMarks()));
+function App({ fetchMarks }) {
+  useEffect(fetchMarks);
 
   const StyledApp = styled.div`
     display: flex;
@@ -55,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(() => {}, { fetchMarks })(App);
