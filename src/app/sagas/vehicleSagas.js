@@ -4,6 +4,8 @@ import {
   MARKS_FETCH_SUCCEEDED,
   VEHICLES_FETCH_REQUESTED,
   VEHICLES_FETCH_SUCCEEDED,
+  IMAGES_FETCH_REQUESTED,
+  IMAGES_FETCH_SUCCEEDED
 } from '../actions/vehicleActions';
 import api from '../resources/vehicleAPI';
 import { CATEGORIES } from '../constants';
@@ -33,9 +35,16 @@ function* fetchVehicle(action) {
   })
 }
 
+function* fetchImages(action) {
+  const { id, images } = yield call(api.fetchImages, action.payload);
+
+  yield put({ type: IMAGES_FETCH_SUCCEEDED, payload: { id, images } });
+}
+
 function* fetchVehiclesSaga() {
   yield takeEvery(MARKS_FETCH_REQUESTED, fetchMarks);
   yield takeEvery(VEHICLES_FETCH_REQUESTED, fetchVehicle);
+  yield takeEvery(IMAGES_FETCH_REQUESTED, fetchImages);
 }
 
 export default fetchVehiclesSaga;

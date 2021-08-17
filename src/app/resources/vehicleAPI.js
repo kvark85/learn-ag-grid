@@ -30,10 +30,25 @@ const fetchOneVehicle = (id) => {
     .then(response => response.json());
 }
 
+const fetchImages = (id) => {
+  return fetch(`https://developers.ria.com/auto/fotos/${id}?api_key=${SEARCH_API_KEY}`)
+    .then(response => response.json())
+    .then(result => {
+      const images = [];
+
+      for (let key in result.data[id]) {
+        images.push(result.data[id][key]);
+      }
+
+      return { id, images };
+    });
+}
+
 const api = {
   fetchMarks,
   fetchVehicles,
   fetchOneVehicle,
+  fetchImages,
 };
 
 export default api;

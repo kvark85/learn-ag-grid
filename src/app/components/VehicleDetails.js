@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from "styled-components";
+import { fetchImages } from "../actions/vehicleActions";
 
-const VehicleDetails = (params) => {
-  const vehicle = params.vehicles.find((vehicle) => vehicle.id=== params.data.id);
+const VehicleDetails = ({
+  data,
+  vehicles,
+  images,
+  fetchImages
+}) => {
+  useEffect(() => {
+    if(images.length !== 0) return;
+
+    fetchImages(data.id);
+  });
+  const vehicle = vehicles.find((vehicle) => vehicle.id === data.id);
 
   const StyledDetailWrapper = styled.div`
     display: flex;
@@ -19,11 +30,15 @@ const VehicleDetails = (params) => {
     padding: 18px;
     white-space: initial;
   `;
+  const StyledImage = styled.img`
+    width: 100%;
+    height: auto;
+  `;
 
   return (
     <StyledDetailWrapper>
       <StyledPhoto>
-        {' photo '}
+        {images && <StyledImage src={images[0]?.formats[0]} alt="Foro of vehicle" />}
       </StyledPhoto>
       <StyledDetailInformation>
         {`Description: ${vehicle.autoData.description}`}
@@ -32,8 +47,9 @@ const VehicleDetails = (params) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, property) => ({
   vehicles: state.vehicleState.vehicles,
-})
+  images: state.vehicleState.images[property.data.id] || [],
+});
 
-export default connect(mapStateToProps)(VehicleDetails);
+export default connect(mapStateToProps, { fetchImages })(VehicleDetails);
