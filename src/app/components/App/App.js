@@ -16,6 +16,7 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './App.css';
 
 function App({ fetchMarks }) {
