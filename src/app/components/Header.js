@@ -3,7 +3,7 @@ import logo from '../../images/logo.png';
 import styled from 'styled-components'
 
 const Search = () => {
-  const StyledHeader = styled.div`
+  const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     height: 45px;
