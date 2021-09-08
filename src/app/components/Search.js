@@ -1,38 +1,38 @@
 import React, { useState } from 'react';
-import { connect } from "react-redux";
+import { useStore } from 'effector-react';
+import $marks from "../effectorStores/marksStore";
 import { Button } from "@blueprintjs/core";
 import { MenuItem } from "@blueprintjs/core";
 import { MultiSelect } from "@blueprintjs/select";
 import styled from 'styled-components'
-import {
-  fetchMarks,
-  fetchVehicles
-} from "../actions/vehicleActions";
+import { fetchVehiclesFx } from '../effectorEventsAndEffects/eventsAndEffects';
 
-const Header = ({ marks, status, fetchVehicles }) => {
-  const [selectedMarks, setMarks] = useState([{ name: 'BMW', value: 9 }]);
-
-  const StyledHeader = styled.div`
+const StyledHeader = styled.div`
     display: flex;
     align-items: center;
     min-height: 45px;
     padding: 16px;
   `;
-  const StyledHeaderText = styled.div`
+const StyledHeaderText = styled.div`
     color: #000000;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0;
   `;
-  const StyledSearchWrapper = styled.div`
+const StyledSearchWrapper = styled.div`
     flex: 1 1 auto;
     padding-left: 16px;
     padding-right: 16px;
   `;
 
-  const StyledSearchInputWrapper = styled.div`
+const StyledSearchInputWrapper = styled.div`
     width: 50%;
   `;
+
+const Header = () => {
+  const marks = useStore($marks);
+  const [selectedMarks, setMarks] = useState([{ name: 'BMW', value: 9 }]);
+  const loading = useStore(fetchVehiclesFx.pending);
 
   const MarkMultiSelect = MultiSelect.ofType();
 
@@ -78,7 +78,7 @@ const Header = ({ marks, status, fetchVehicles }) => {
     setMarks([...selectedMarks, mark]);
   };
 
-  const handleSearchClick = () => fetchVehicles(selectedMarks);
+  const handleSearchClick = () => fetchVehiclesFx(selectedMarks);
 
   return (
     <StyledHeader>
@@ -106,7 +106,7 @@ const Header = ({ marks, status, fetchVehicles }) => {
       <Button
         icon="cube-add"
         intent="primary"
-        loading={status === 'loading'}
+        loading={loading}
         disabled={selectedMarks.length === 0}
         onClick={handleSearchClick}
       >
@@ -116,13 +116,4 @@ const Header = ({ marks, status, fetchVehicles }) => {
   )
 };
 
-export default connect(
-  ({ vehicleState: { marks, status } }) => ({
-    marks,
-    status
-  }),
-  {
-    fetchMarks,
-    fetchVehicles
-  }
-)(Header);
+export default Header;

@@ -1,39 +1,28 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useStore } from 'effector-react';
 import styled from "styled-components";
-import { fetchImages } from "../actions/vehicleActions";
+import { fetchImagesFx } from '../effectorEventsAndEffects/eventsAndEffects';
 import { Carousel } from 'react-responsive-carousel';
+import { $vehicles } from "../effectorStores/vehiclesStore";
+import $images from "../effectorStores/imagesStore";
 
-const VehicleDetails = ({
-  data,
-  vehicles,
-  images,
-  fetchImages
-}) => {
-  useEffect(() => {
-    if(images.length !== 0) return;
-
-    fetchImages(data.id);
-  });
-  const vehicle = vehicles.find((vehicle) => vehicle.id === data.id);
-
-  const StyledDetailWrapper = styled.div`
+const StyledDetailWrapper = styled.div`
     display: flex;
     height: 300px;
   `;
-  const StyledPhoto = styled.div`
+const StyledPhoto = styled.div`
     max-width: 300px;
     width: 300px;
     min-width: 300px;
     padding: 18px;
     white-space: initial;
   `;
-  const StyledDetailInformation = styled.div`
+const StyledDetailInformation = styled.div`
     flex: 1 1 auto;
     padding: 18px;
     white-space: initial;
   `;
-  const ImageWrapper = styled.div`
+const ImageWrapper = styled.div`
     width: calc(300px - (2 * 16px));
     height: calc(300px - (2 * 16px));
     overflow: hidden;
@@ -41,18 +30,28 @@ const VehicleDetails = ({
     justify-content: center;
     align-items: center;
   `;
-  const StyledImage = styled.img`
+const StyledImage = styled.img`
     height: auto;
     width: 100%;
   `;
+
+const VehicleDetails = ({ data }) => {
+  const vehicles = useStore($vehicles);
+  const vehiclesImages = useStore($images)[data.id] || [];
+  useEffect(() => {
+    if(vehiclesImages.length !== 0) return;
+
+    fetchImagesFx(data.id);
+  });
+  const vehicle = vehicles.find((vehicle) => vehicle.id === data.id);
 
   return (
     <StyledDetailWrapper>
       <StyledPhoto>
         <Carousel centerMode={false}>
-            {images.map((image, index) => (
-              <ImageWrapper>
-                <StyledImage key={index} src={image.formats[0]} alt="Foro of vehicle" />
+            {vehiclesImages.map((image, index) => (
+              <ImageWrapper key={index}>
+                <StyledImage src={image.formats[0]} alt="Foro of vehicle" />
               </ImageWrapper>
             ))}
         </Carousel>
@@ -64,9 +63,4 @@ const VehicleDetails = ({
   );
 };
 
-const mapStateToProps = (state, property) => ({
-  vehicles: state.vehicleState.vehicles,
-  images: state.vehicleState.images[property.data.id] || [],
-});
-
-export default connect(mapStateToProps, { fetchImages })(VehicleDetails);
+export default VehicleDetails;

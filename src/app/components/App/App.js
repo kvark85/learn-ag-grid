@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { fetchMarks } from "../../actions/vehicleActions";
+import { fetchMarksFx } from '../../effectorEventsAndEffects/eventsAndEffects';
 import styled from 'styled-components'
 import {
   Switch,
@@ -18,10 +17,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './App.css';
 
-function App({ fetchMarks }) {
-  useEffect(fetchMarks);
-
-  const StyledContent = styled.div`
+const StyledContent = styled.div`
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
@@ -29,21 +25,24 @@ function App({ fetchMarks }) {
     min-height: 100vh;
   `;
 
+function App() {
+  useEffect(fetchMarksFx);
+
   return (
-    <StyledContent>
-      <Switch>
-        <Route path="/grouped-table">
-          <GroupedTable />
-        </Route>
-        <Route path="/drag-and-drop">
-          <DragAndDropTable />
-        </Route>
-        <Route path="/">
-          <GroupedTable />
-        </Route>
-      </Switch>
-    </StyledContent>
+      <StyledContent>
+        <Switch>
+          <Route path="/grouped-table">
+            <GroupedTable />
+          </Route>
+          <Route path="/drag-and-drop">
+            <DragAndDropTable />
+          </Route>
+          <Route path="/">
+            <GroupedTable />
+          </Route>
+        </Switch>
+      </StyledContent>
   );
 }
 
-export default connect(() => {}, { fetchMarks })(App);
+export default App;

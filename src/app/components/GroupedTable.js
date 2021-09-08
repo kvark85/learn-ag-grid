@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import styled from 'styled-components'
-import { connect } from 'react-redux';
+import { useStore } from 'effector-react';
 import Header from './Header'
 import Search from './Search'
 import VehicleDetails from './VehicleDetails'
@@ -13,11 +13,27 @@ import {
   amountValueFormatter,
   AmountCellRenderer,
 } from '../helpers';
-import { fetchMarks } from "../actions/vehicleActions";
-import { getVehiclesTableData } from "../selectors/vehicleSelector";
+import { $vehiclesTableData } from "../effectorStores/vehiclesStore";
 
-const GroupedTable = ({ vehiclesTableData }) => {
-  const [isAsideVisible, setAside] = useState(true);
+const MainSection = styled.section`
+    display: flex;
+    flex: 1 1 auto;
+    padding: 0 16px 16px 16px;
+  `;
+
+const StyledButtonWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    border-top: 1px solid #DADCDE;
+    border-bottom: 1px solid #DADCDE;
+    border-right: 1px solid #DADCDE;
+  `;
+
+const GroupedTable = () => {
+  const vehiclesTableData = useStore($vehiclesTableData);
+  const [isAsideVisible, setAside] = useState(false);
   const gridOptions = {
     masterDetail: true,
     detailCellRenderer: 'vehicleDetails',
@@ -65,24 +81,9 @@ const GroupedTable = ({ vehiclesTableData }) => {
     rowData: vehiclesTableData
   };
 
-  const MainSection = styled.section`
-    display: flex;
-    flex: 1 1 auto;
-    padding: 0 16px 16px 16px;
-  `;
-
   const StyledTableWrapper = styled.div`
     flex: 1 1 auto;
-    background-color: #75a1ee;
-  `;
-  const StyledButtonWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    border-top: 1px solid #DADCDE;
-    border-bottom: 1px solid #DADCDE;
-    border-right: 1px solid #DADCDE;
+    min-width: 0;
   `;
 
   return (
@@ -109,7 +110,4 @@ const GroupedTable = ({ vehiclesTableData }) => {
   )
 };
 
-export default connect(
-  (state) => ({ vehiclesTableData: getVehiclesTableData(state) }),
-  { fetchMarks }
-)(GroupedTable);
+export default GroupedTable;
